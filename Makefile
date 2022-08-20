@@ -6,7 +6,7 @@
 #    By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 13:29:01 by doreshev          #+#    #+#              #
-#    Updated: 2022/08/16 18:32:06 by lorbke           ###   ########.fr        #
+#    Updated: 2022/08/20 21:07:55 by lorbke           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ AR = ar rcs
 RM = rm -f
 FLAGS = #-Wall -Wextra -Werror
 
-SRC = experimenting.c
+SRC = manage_path.c main.c
 OBJ = ${SRC:.c=.o}
 
 .c.o:

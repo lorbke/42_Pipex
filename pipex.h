@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:39:39 by doreshev          #+#    #+#             */
-/*   Updated: 2022/08/16 18:06:26 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/20 22:24:54 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 // #  define PATH_ENV NULL
 // # endif
 
+// X_OK
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -33,6 +34,11 @@
 # include "libft/libft.h"
 # include "libft/ft_printf.h"
 
-int	ft_execute(char const *path, char *const *env, int fd[2], char **cmd);
+char	*ft_strnstr_arr(char **str_arr, char *needle);
+char	*ft_find_path(char *path_str, char delim, char *cmd);
+char	**ft_get_paths(char **envp, char ***cmd);
+
+char	***ft_init_cmds(char *args[], char delim);
+void	ft_execute(int in, int out, char *path, char *const args[], char *const env[]);
 
 #endif
