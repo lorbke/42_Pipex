@@ -6,7 +6,7 @@
 #    By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 13:29:01 by doreshev          #+#    #+#              #
-#    Updated: 2022/08/20 21:07:55 by lorbke           ###   ########.fr        #
+#    Updated: 2022/08/22 15:31:54 by lorbke           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ AR = ar rcs
 RM = rm -f
 FLAGS = #-Wall -Wextra -Werror
 
-SRC = manage_path.c main.c
+SRC = main.c ft_get_paths.c ft_execute.c ft_write_to_file_fd.c
 OBJ = ${SRC:.c=.o}
 
 .c.o:

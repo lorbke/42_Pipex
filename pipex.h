@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:39:39 by doreshev          #+#    #+#             */
-/*   Updated: 2022/08/20 22:24:54 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/22 15:34:48 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@
 # include "libft/libft.h"
 # include "libft/ft_printf.h"
 
-char	*ft_strnstr_arr(char **str_arr, char *needle);
-char	*ft_find_path(char *path_str, char delim, char *cmd);
 char	**ft_get_paths(char **envp, char ***cmd);
 
-char	***ft_init_cmds(char *args[], char delim);
 void	ft_execute(int in, int out, char *path, char *const args[], char *const env[]);
+
+int		ft_write_to_file_fd(int fd, char *file_name);
 
 #endif

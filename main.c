@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:38:16 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/20 23:27:34 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/22 16:40:38 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 // execute
 
 // error handling (malloc errors)
+// frees
+// defines in header
 
-char	***ft_init_cmds(char *args[], char delim)
+static char	***ft_init_cmds(char *args[], char delim)
 {
 	char	***cmd;
 	int		i;
@@ -27,7 +29,7 @@ char	***ft_init_cmds(char *args[], char delim)
 	i = 0;
 	while (args[i])
 		i++;
-	cmd = (char ***)malloc(sizeof(char **) * i + 1);
+	cmd = malloc(sizeof(char **) * i + 1);
 	i = 0;
 	while (args[i])
 	{
@@ -38,45 +40,18 @@ char	***ft_init_cmds(char *args[], char delim)
 	return (cmd);
 }
 
-void	ft_execute(int in, int out, char *path, char *const args[], char *const env[])
-{
-	int pid;
-
-	pid = fork();
-	if (pid < 0)
-		perror("fork failed");
-	if (pid == 0)
-	{
-		if (dup2(in, STDIN_FILENO) == -1)
-			perror("dup2 failed");
-		if (dup2(out, STDOUT_FILENO) == -1)
-			perror("dup2 failed");
-		close(in);
-		close(out);
-		if (execve(path, args, env) == -1)
-			perror("execve failed");
-	}
-	// waitpid(pid, NULL, 0);
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	***cmd;
 	char	**path;
 	int		fd[1024][2];
+	int		i;
 
 	cmd = ft_init_cmds(&argv[2], ' ');
 	path = ft_get_paths(envp, cmd);
-
-	// pre while logic
-	if (pipe(fd[0]) == -1)
-		perror("pipe failed");
-	fd[0][1] = open(argv[1], O_RDONLY);
-	close(fd[0][1]);
-
-	// while logic
-	int i = 0;
-	while (cmd[i])
+	fd[0][0] = open(argv[1], O_RDONLY);
+	i = 0;
+	while (cmd[i + 1])
 	{
 		if (pipe(fd[i + 1]) == -1)
 			perror("pipe failed");
@@ -85,13 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 		close(fd[i + 1][1]);
 		i++;
 	}
-
-	// post while logic
-	char	*out;
-	out = malloc(100);
-	if (read(fd[i][0], out, 100) == -1)
-		perror("read failed");
-	printf("%s\n", out);
-	close(fd[i][0]);
+	waitpid(-1, NULL, 0);
+	ft_write_to_file_fd(fd[i][0], argv[argc - 1]);
 	return (0);
 }
