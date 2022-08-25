@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:38:16 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/23 18:39:19 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/25 23:42:22 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,65 +31,29 @@ static char	***ft_init_cmds(char *args[], char delim)
 	return (cmd);
 }
 
-void	ft_pipe_heredoc(int fd_out, char *delim)
-{
-	char	*str;
-	char	*out;
-	int		buffer;
-	int		i;
-
-	buffer = 10;
-	str = malloc((buffer + 1) * sizeof(char));
-	out = malloc((buffer + 1) * sizeof(char));
-	*str = 0;
-	*out = 0;
-	i = 0;
-	while (ft_strncmp(str, delim, ft_strlen(delim + 10)) != 0)
-	{
-		ft_printf("%s", out);
-		ft_printf("heredoc>");
-		str = malloc((buffer + 1) * sizeof(char));
-		i += read(STDOUT_FILENO, str, buffer);
-		out = ft_strjoin(out, str);
-		free(str);
-	}
-	write(fd_out, out, i);
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	***cmd;
-	char	**path;
-	int		fd[1024][2];
 	int		i;
+	int		fd[2];
+	int		fd_out;
+	char	***cmd;
 
-	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
+	i = 2;
+	if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0)
 	{
-		if (pipe(fd[0]) == -1)
-			perror("pipe failed");
-		ft_pipe_heredoc(fd[0][1], argv[2]);
-		close(fd[0][1]);
-		cmd = ft_init_cmds(&argv[3], ' ');
-	}
-	else
-	{
-		fd[0][0] = open(argv[1], O_RDONLY);
-		cmd = ft_init_cmds(&argv[2], ' ');
-	}
-	path = ft_get_paths(envp, cmd);
-	i = 0;
-	while (cmd[i + 1])
-	{
-		if (pipe(fd[i + 1]) == -1)
-			perror("pipe failed");
-		ft_execute(fd[i][0], fd[i + 1][1], path[i], cmd[i], envp);
-		close(fd[i][0]);
-		close(fd[i + 1][1]);
+		ft_pipe_heredoc(fd, argv[i], argc);
 		i++;
 	}
-	ft_write_fd_to_file(fd[i][0], argv[argc - 1]);
+	else
+		fd[0] = open(argv[1], O_RDONLY);
+	cmd = ft_init_cmds(&argv[i], ' ');
+	fd_out = ft_exec_pipe(fd[0], argc, cmd, envp);
+	ft_write_fd_to_file(fd_out, argv[argc - 1]);
 	while (wait(NULL) > 0);
 	return (0);
 }
 
 // create outfile if not existing
+// append when heredoc
+// wrong number of arguments check
+// here_doc limiter check
