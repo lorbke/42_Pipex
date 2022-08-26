@@ -6,13 +6,12 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:15:44 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/22 15:29:29 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/26 22:04:03 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// select PATH part of envp
 static char	*ft_strnstr_arr(char **str_arr, char *needle)
 {
 	while (*str_arr)
@@ -24,8 +23,6 @@ static char	*ft_strnstr_arr(char **str_arr, char *needle)
 	return (NULL);
 }
 
-// check every path str seperated by delimiter with access for specified cmd
-// return full correct path
 static char	*ft_find_path(char *path_str, char delim, char *cmd)
 {
 	char	**path_arr;
@@ -33,9 +30,13 @@ static char	*ft_find_path(char *path_str, char delim, char *cmd)
 
 	cmd = ft_strjoin("/", cmd);
 	path_arr = ft_split(path_str, delim);
+	if (path_arr == NULL)
+		ft_handle_error(1);
 	while (*path_arr)
 	{
 		temp = ft_strjoin(*path_arr, cmd);
+		if (temp == NULL)
+			ft_handle_error(1);
 		if (access(temp, X_OK) == 0)
 			return (temp);
 		path_arr++;
@@ -43,7 +44,6 @@ static char	*ft_find_path(char *path_str, char delim, char *cmd)
 	return (NULL);
 }
 
-// return path
 char	**ft_get_paths(char **envp, char ***cmd)
 {
 	char	**path;
@@ -53,14 +53,20 @@ char	**ft_get_paths(char **envp, char ***cmd)
 
 	path_set = ft_strnstr_arr(envp, path_ident);
 	path_set = ft_strtrim(path_set, path_ident);
+	if (path_set == NULL)
+		ft_handle_error(9);
 	i = 0;
 	while (cmd[i])
 		i++;
 	path = (char **)malloc(sizeof(char *) * (i + 1));
+	if (path == NULL)
+		ft_handle_error(1);
 	i = 0;
 	while (cmd[i])
 	{
 		path[i] = ft_find_path(path_set, ':', cmd[i][0]);
+		if (path[i] == NULL)
+			ft_handle_error(10);
 		i++;
 	}
 	path[i] = 0;
