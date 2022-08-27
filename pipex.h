@@ -26,7 +26,7 @@
 # include "libft/libft.h"
 # include "libft/ft_printf.h"
 
-void	ft_handle_error(int i);
+void	ft_handle_error(int i, char *cmd);
 void	ft_pipe_heredoc(int fd[2], char *limiter, int argc);
 char	**ft_get_paths(char **envp, char ***cmd);
 int		ft_exec_pipe(int fd_in, char ***cmd, char *envp[]);

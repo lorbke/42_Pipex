@@ -12,27 +12,59 @@
 
 #include "pipex.h"
 
+static void ft_free_path(char **path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i])
+	{
+		free(path[i]);
+		i++;
+	}
+	free(path);
+}
+
+static void ft_free_cmd(char ***cmd)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (cmd[i])
+	{
+		j = 0;
+		while(cmd[i][j])
+		{
+			free(cmd[i][j]);
+			j++;
+		}
+		free(cmd[i]);
+		i++;
+	}
+	free(cmd);
+}
+
 static void	ft_execute(int fd[2], char *path, char **cmd, char *envp[])
 {
 	int	pid;
 
 	pid = fork();
 	if (pid == -1)
-		ft_handle_error(6);
+		ft_handle_error(6, NULL);
 	if (pid == 0)
 	{
 		if (dup2(fd[0], STDIN_FILENO) == -1)
-			ft_handle_error(7);
+			ft_handle_error(7, NULL);
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
-			ft_handle_error(7);
+			ft_handle_error(7, NULL);
 		close(fd[0]);
 		close(fd[1]);
 		if (execve(path, cmd, envp) == -1)
-			ft_handle_error(8);
+			ft_handle_error(8, NULL);
 	}
 }
 
-// takes beginning of pipe and returns end of pipe
 int	ft_exec_pipe(int fd_in, char ***cmd, char *envp[])
 {
 	char	**path;
@@ -43,10 +75,10 @@ int	ft_exec_pipe(int fd_in, char ***cmd, char *envp[])
 	path = ft_get_paths(envp, cmd);
 	fd[0][0] = fd_in;
 	i = 0;
-	while (cmd[i + 1])
+	while (cmd[i])
 	{
 		if (pipe(fd[i + 1]) == -1)
-			ft_handle_error(2);
+			ft_handle_error(2, NULL);
 		fd_temp[0] = fd[i][0];
 		fd_temp[1] = fd[i + 1][1];
 		ft_execute(fd_temp, path[i], cmd[i], envp);
@@ -54,5 +86,7 @@ int	ft_exec_pipe(int fd_in, char ***cmd, char *envp[])
 		close(fd[i + 1][1]);
 		i++;
 	}
+	ft_free_path(path);
+	ft_free_cmd(cmd);
 	return (fd[i][0]);
 }

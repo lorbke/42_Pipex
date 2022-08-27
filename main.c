@@ -18,22 +18,20 @@ static char	***ft_init_cmds(char *args[], char delim)
 	int		i;
 
 	i = 0;
-	while (args[i])
+	while (args[i + 1])
 		i++;
 	cmd = malloc(sizeof(char **) * i + 1);
 	if (cmd == NULL)
-		ft_handle_error(1);
+		ft_handle_error(1, NULL);
 	i = 0;
-	while (args[i])
+	while (args[i + 1])
 	{
 		cmd[i] = ft_split(args[i], delim);
-		{
-			if (cmd[i] == NULL)
-				ft_handle_error(1);
-		}
+		if (cmd[i] == NULL)
+			ft_handle_error(1, NULL);
 		i++;
 	}
-	cmd[i] = 0;
+	cmd[i] = NULL;
 	return (cmd);
 }
 
@@ -46,7 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	i = 0;
 	if (argc < 5)
-		ft_handle_error(0);
+		ft_handle_error(0, NULL);
 	if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0)
 	{
 		ft_pipe_heredoc(fd, argv[i + 2], argc);
@@ -57,7 +55,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		fd[0] = open(argv[1], O_RDONLY);
 		if (fd[0] == -1)
-			ft_handle_error(3);
+			ft_handle_error(3, NULL);
 	}
 	cmd = ft_init_cmds(&argv[i + 2], ' ');
 	fd_out = ft_exec_pipe(fd[0], cmd, envp);
@@ -65,11 +63,3 @@ int	main(int argc, char *argv[], char *envp[])
 	while (wait(NULL) > 0);
 	return (0);
 }
-
-// check if infile exists
-
-// mandatory bonus differentiation
-
-// how to extract bash or zsh? -> env SHELL=/bin/zsh
-// zsh: no such file or directory: inf
-// zsh: command not found: ct

@@ -12,29 +12,29 @@
 
 #include "pipex.h"
 
-void	ft_handle_error(int i)
+void	ft_handle_error(int i, char *cmd)
 {
 	if (i == 0)
-		ft_printf("Error: Wrong number of arguments.");
+		ft_printf("pipex: wrong number of arguments.");
 	if (i == 1)
-		perror("Error: malloc() failed");
+		perror("pipex: malloc() failed");
 	if (i == 2)
-		perror("Error: pipe() failed");
+		perror("pipex: pipe() failed");
 	if (i == 3)
-		perror("Error: open() failed");
+		perror("pipex: open() failed");
 	if (i == 4)
-		perror("Error: read() failed");
+		perror("pipex: read() failed");
 	if (i == 5)
-		perror("Error: write() failed");
+		perror("pipex: write() failed");
 	if (i == 6)
-		perror("Error: fork() failed");
+		perror("pipex: fork() failed");
 	if (i == 7)
-		perror("Error: dup2() failed");
+		perror("pipex: dup2() failed");
 	if (i == 8)
-		perror("Error: execve() failed");
+		perror("pipex: execve() failed");
 	if (i == 9)
-		ft_printf("Error: path could not be found");
+		ft_printf("pipex: path could not be found");
 	if (i == 10)
-		ft_printf("Error: command not found");
+		ft_printf("pipex: command not found: %s", cmd);
 	exit(i);
 }
