@@ -6,13 +6,13 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 15:30:13 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/26 21:37:53 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/29 14:59:09 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void ft_free_path(char **path)
+static void	ft_free_path(char **path)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ static void ft_free_path(char **path)
 	free(path);
 }
 
-static void ft_free_cmd(char ***cmd)
+static void	ft_free_cmd(char ***cmd)
 {
 	int	i;
 	int	j;
@@ -34,7 +34,7 @@ static void ft_free_cmd(char ***cmd)
 	while (cmd[i])
 	{
 		j = 0;
-		while(cmd[i][j])
+		while (cmd[i][j])
 		{
 			free(cmd[i][j]);
 			j++;

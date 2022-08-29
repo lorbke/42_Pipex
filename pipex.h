@@ -6,16 +6,13 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:39:39 by doreshev          #+#    #+#             */
-/*   Updated: 2022/08/26 21:59:04 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/29 15:21:34 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-// X_OK
-
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <sys/types.h>

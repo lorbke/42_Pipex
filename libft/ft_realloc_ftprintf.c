@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_reallocf.c                                      :+:      :+:    :+:   */
+/*   ft_realloc_ftprintf.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:48:36 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/22 14:49:16 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/29 18:20:56 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	*ft_reallocf(void *ptr, size_t size)
+void	*ft_realloc_ftprintf(void *ptr, size_t size, size_t size_src)
 {
 	void	*ptr_cpy;
 
@@ -26,7 +26,7 @@ void	*ft_reallocf(void *ptr, size_t size)
 	ptr_cpy = (void *)malloc(size);
 	if (ptr_cpy == NULL)
 		return (NULL);
-	ft_memmove(ptr_cpy, ptr, size);
+	ft_memmove(ptr_cpy, ptr, size_src);
 	free(ptr);
 	return (ptr_cpy);
 }

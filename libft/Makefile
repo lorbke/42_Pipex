@@ -6,7 +6,7 @@
 #    By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/05 10:51:07 by lorbke            #+#    #+#              #
-#    Updated: 2022/08/22 14:49:41 by lorbke           ###   ########.fr        #
+#    Updated: 2022/08/29 18:22:58 by lorbke           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c \
 ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 ft_lstclear.c ft_lstiter.c ft_lstmap.c \
 ft_printf.c ft_itoa_base.c ft_parse.c ft_printchar.c ft_printstr.c \
-ft_vector_helper.c ft_vector.c ft_reallocf.c
+ft_vector_helper.c ft_vector.c ft_realloc_ftprintf.c
 
 NAME = libft.a
 

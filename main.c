@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:38:16 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/26 21:35:08 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/29 15:23:13 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	***ft_init_cmds(char *args[], char delim)
 	i = 0;
 	while (args[i + 1])
 		i++;
-	cmd = malloc(sizeof(char **) * i + 1);
+	cmd = malloc(sizeof(char **) * (i + 1));
 	if (cmd == NULL)
 		ft_handle_error(1, NULL);
 	i = 0;
@@ -47,9 +47,8 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_handle_error(0, NULL);
 	if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0)
 	{
-		ft_pipe_heredoc(fd, argv[i + 2], argc);
+		ft_pipe_heredoc(fd, argv[(i++) + 2], argc);
 		close(fd[1]);
-		i++;
 	}
 	else
 	{
@@ -60,6 +59,7 @@ int	main(int argc, char *argv[], char *envp[])
 	cmd = ft_init_cmds(&argv[i + 2], ' ');
 	fd_out = ft_exec_pipe(fd[0], cmd, envp);
 	ft_write_fd_to_file(fd_out, argv[argc - 1], i);
-	while (wait(NULL) > 0);
+	while (wait(NULL) > 0)
+		;
 	return (0);
 }

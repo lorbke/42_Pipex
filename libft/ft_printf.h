@@ -54,7 +54,7 @@ typedef struct s_mods
 int		ft_printf(const char *format, ...);
 void	ft_parse(t_frame *frame, t_mods *mods, t_vector *vector);
 
-void	*ft_reallocf(void *ptr, size_t size);
+void	*ft_realloc_ftprintf(void *ptr, size_t size, size_t size_src);
 void	ft_vector_push_back(t_vector *vector, char c, int n);
 void	ft_vector_init(t_vector *vector);
 int		ft_vector_get_len(t_vector *vector);

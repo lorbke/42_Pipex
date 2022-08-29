@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:24:26 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/22 14:50:37 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/29 18:21:30 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_vector_push_back(t_vector *vector, char c, int n)
 	if (vector->temp_len + n >= vector->len)
 	{
 		vector->len += n + 100;
-		vector->output = ft_reallocf(vector->output, vector->len);
+		vector->output = ft_realloc_ftprintf(vector->output, vector->len,
+				vector->temp_len);
 	}
 	while (n > 0)
 	{
