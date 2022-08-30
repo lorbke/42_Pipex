@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 21:58:09 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/26 21:58:31 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/30 14:09:45 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_handle_error(int i, char *cmd)
 {
 	if (i == 0)
-		ft_printf("pipex: wrong number of arguments.");
+		ft_printf("pipex: wrong number of arguments");
 	if (i == 1)
 		perror("pipex: malloc() failed");
 	if (i == 2)

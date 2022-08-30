@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:38:16 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/29 15:23:13 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/08/30 14:40:55 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ static char	***ft_init_cmds(char *args[], char delim)
 	return (cmd);
 }
 
+static int	ft_open_outfile(char *file_name, int heredoc)
+{
+	int	fd;
+
+	if (heredoc == 1)
+		fd = open(file_name, O_APPEND | O_WRONLY | O_CREAT, 0644);
+	else
+		fd = open(file_name, O_TRUNC | O_WRONLY | O_CREAT, 0644);
+	return (fd);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	int		i;
@@ -57,8 +68,8 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_handle_error(3, NULL);
 	}
 	cmd = ft_init_cmds(&argv[i + 2], ' ');
-	fd_out = ft_exec_pipe(fd[0], cmd, envp);
-	ft_write_fd_to_file(fd_out, argv[argc - 1], i);
+	fd_out = ft_open_outfile(argv[argc - 1], i);
+	ft_exec_pipe(fd[0], fd_out, cmd, envp);
 	while (wait(NULL) > 0)
 		;
 	return (0);
