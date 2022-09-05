@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 15:30:13 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/30 17:58:16 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/09/02 17:57:08 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_exec_pipe(int fd_in, int fd_out, char ***cmd, char *envp[])
 	while (cmd[i])
 	{
 		if (pipe(fd[i + 1]) == -1)
-	ft_handle_error(2, NULL);
+			ft_handle_error(2, NULL);
 		fd_temp[0] = fd[i][0];
 		if (cmd[i + 1])
 			fd_temp[1] = fd[i + 1][1];

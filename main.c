@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:38:16 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/30 14:40:55 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/09/05 10:59:58 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ static int	ft_open_outfile(char *file_name, int heredoc)
 	return (fd);
 }
 
+void	ft_check_args(int argc, char *argv[])
+{
+	if (argc < 5)
+		ft_handle_error(0, NULL);
+	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
+	{
+		if (argc < 6)
+			ft_handle_error(0, NULL);
+	}
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	int		i;
@@ -54,9 +65,8 @@ int	main(int argc, char *argv[], char *envp[])
 	char	***cmd;
 
 	i = 0;
-	if (argc < 5)
-		ft_handle_error(0, NULL);
-	if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0)
+	ft_check_args(argc, argv);
+	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
 	{
 		ft_pipe_heredoc(fd, argv[(i++) + 2], argc);
 		close(fd[1]);

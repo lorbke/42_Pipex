@@ -6,7 +6,7 @@
 /*   By: lorbke <lorbke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:15:44 by lorbke            #+#    #+#             */
-/*   Updated: 2022/08/30 17:39:42 by lorbke           ###   ########.fr       */
+/*   Updated: 2022/09/02 17:59:30 by lorbke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static char	*ft_get_pathset(char **envp)
 
 	path_set = ft_strnstr_arr(envp, "PATH=");
 	path_set = ft_strtrim(path_set, "PATH=");
-	// if (path_set == NULL)
-	// 	ft_handle_error(9, NULL);
 	return (path_set);
 }
 
